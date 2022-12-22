@@ -1,9 +1,11 @@
-const HomePage = () => {
+import Heading from '../components/ui/Heading';
+
+function HomePage() {
   return (
     <div className="border rounded p-4 m-8 flex flex-col gap-4 w-1/2">
-      <h1 className="text-3xl">React Hooks</h1>
+      <Heading level={'h1'}>React Hooks</Heading>
       <div className="flex flex-col gap-2">
-        <h4 className="text-lg">What are hooks?</h4>
+        <Heading level={'h4'}>What are hooks?</Heading>
         <p>
           Hooks are functions that allow us to use React features, such as state
           and lifecycle methods, in functional components. While class
@@ -18,12 +20,12 @@ const HomePage = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <h4 className="text-lg">Rules of hooks</h4>
+        <Heading level={'h4'}>Rules of Hooks</Heading>
         <p>There are two rules to be followed when using React hooks.</p>
         <div>
-          <h3 className="text-xl">
+          <Heading level={'h3'}>
             Hooks should only be called at the top level
-          </h3>
+          </Heading>
           <p>
             React implements hooks as a queue of nodes with every node having a
             reference to the next one. This means React relies on the order in
@@ -34,9 +36,9 @@ const HomePage = () => {
           </p>
         </div>
         <div>
-          <h3 className="text-xl">
+          <Heading level={'h3'}>
             Hooks should only be called from React functions
-          </h3>
+          </Heading>
           <p>
             To ensure that all stateful logic in a component is clearly visible
             from its source code, hooks should always be called in either a
@@ -47,6 +49,6 @@ const HomePage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default HomePage;

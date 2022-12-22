@@ -1,23 +1,6 @@
-import {
-  Link,
-  Route,
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 
-import Home from './pages/Home';
-import UseStatePage from './pages/UseState';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: 'use-state',
-    element: <UseStatePage />,
-  },
-]);
+import { router } from './libs/router';
 
 function App() {
   return (
