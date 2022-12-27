@@ -1,24 +1,72 @@
+import PageWithLayout from '../components/PageWithLayout';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
 
 function UseImperativeHandlePage() {
+  const initializeExample = `
+  import { forwardRef, useImperativeHandle } from 'react';
+  
+  const MyInput = forwardRef(function MyInput(props, ref) {
+    useImperativeHandle(ref, () => {
+      return {
+        // ... the methods we want to expose ...
+      }
+    } ,[]);
+    
+    // ...
+  })
+  `;
+
+  const forwardRefExample = `
+  import { forwardRef, useRef, useImperativeHandle } from 'react';
+  
+  const MyInput = forwardRef(function MyInput(props, ref) {
+    const inputRef = useRef(null);
+
+    useImperativeHandle(ref, () => {
+      return {
+        focus() {
+          inputRef.current.focus();
+        },
+        scrollIntoView() {
+          inputRef.current.scrollIntoView();
+        },
+      };
+    }, []);
+
+    return <input {...props} ref={inputRef} />;
+  });
+  `;
+
   return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useImperativeHandle</Heading>
-      <p className="text-6xl">TODO</p>
-      <CodeSnippet>'useImperativeHandle example'</CodeSnippet>
+    <PageWithLayout>
+      <Heading level={'h2'}>useImperativeHandle</Heading>
       <p>
-        useRef hook takes an initial value as a parameter and returns a ref
-        object. Initially 'current' property of the ref object will be set to
-        the initial value we provided.
+        Parent components are given access to DOM nodes through forwardRef. For
+        the cases that a custom value is needed to be exposed instead of the DOM
+        node, useImperativeHandle can be used.
       </p>
-      <CodeSnippet>'useRef create and provider example'</CodeSnippet>
+      <CodeSnippet>{initializeExample}</CodeSnippet>
       <p>
-        ref.current can be set to something else later and unless it holds an
-        object that is used for rendering, it is mutable. Changing ref object
-        will not trigger any new renders.
+        The first parameter useImperativeHandle hook takes is the ref we are
+        overriding, the second parameter is a function that returns the new
+        value we want to expose. The third parameter is the optinial dependency
+        list which will be used to trigger re-renders when the values in the
+        list change. The returned value from the hook is undefined.
       </p>
-    </div>
+      <CodeSnippet>{forwardRefExample}</CodeSnippet>
+      <p>
+        The methods provided in the hook will be available to the parent
+        component instead of the entire DOM node itself.
+      </p>
+      <p>
+        refs should only be used for behaviours that can't be expressed as
+        props, for example scrolling to a node, triggering an animation or
+        selecting text. If the behaviour can be expressed as a prop, it is
+        always better to avoid using refs and instead managing it with the help
+        of Effects.
+      </p>
+    </PageWithLayout>
   );
 }
 

@@ -1,15 +1,28 @@
+import PageWithLayout from '../components/PageWithLayout';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
 
 function UseMemoPage() {
+  const initializeExample = `
+    import { useMemo } from 'react';
+
+    function TodoList({ todos }) {
+      const visibleTodos = useMemo(
+        () => filterTodos(todos),
+        [todos]
+      );
+      // ...
+    }
+  `;
+
   return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useMemo</Heading>
+    <PageWithLayout>
+      <Heading level={'h2'}>useMemo</Heading>
       <p>
         We can cache the result of a calculation between re-renders with
         useMemo.
       </p>
-      <CodeSnippet>'useMemo example'</CodeSnippet>
+      <CodeSnippet>{initializeExample}</CodeSnippet>
       <p>
         useMemo takes two arguments, the first is a calculation function that
         takes no arguments and returns what we wanted to calculate, and the
@@ -52,7 +65,7 @@ function UseMemoPage() {
         useMemo, we can avoid recalculations that would be caused by dependency
         changes.
       </p>
-    </div>
+    </PageWithLayout>
   );
 }
 

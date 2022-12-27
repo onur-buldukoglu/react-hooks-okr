@@ -1,19 +1,50 @@
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-
 import Counter from '../components/Counter';
+import PageWithLayout from '../components/PageWithLayout';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
-import {
-  initializeStateExample,
-  setStateFunctionExample,
-  updatingObjectExample,
-} from '../libs/codeSnippets/useStateExamples';
 
 function UseStatePage() {
+  const initializeStateExample = `
+  import { useState } from 'react';
+  
+  function MyComponent() {
+    const [age, setAge] = useState(23);
+    const [name, setName] = useState('Max');
+
+    // ...
+  }
+  `;
+
+  const setStateFunctionExample = `
+  function Counter() {
+    const [count, setCount] = useState(0);
+
+    function handleCountSet(newCount) {
+      setCount(newCount);
+    }
+
+    function handleCountIncrement() {
+      setCount(previousCount => previousCount + 1);
+    }
+
+    // ...
+  }
+  `;
+
+  const updatingObjectExample = `
+    // mutating the existing object should be avoided
+    user.name = 'Max'
+
+    // instead it should be replaced with a new object
+    setUser({
+      ...user,
+      name: 'Max'
+    });
+  `;
+
   return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useState</Heading>
+    <PageWithLayout>
+      <Heading level={'h2'}>useState</Heading>
       <p>
         State is what makes it possible for the component to remember
         information. Normally, variables declared in a function will not be
@@ -40,9 +71,8 @@ function UseStatePage() {
         component to re-render.
       </p>
       <Heading level={'h3'}>Updating State</Heading>
-      <SyntaxHighlighter language="javascript" style={a11yDark}>
-        {setStateFunctionExample}
-      </SyntaxHighlighter>
+      <CodeSnippet>{setStateFunctionExample}</CodeSnippet>
+
       <p>
         The new state value can be given to the set function either directly or
         through a function which calculates it from the previous state. This
@@ -59,9 +89,7 @@ function UseStatePage() {
         If we are updating a state that is an object or an array, we should
         always replace it with a new one instead of mutating the existing one.
       </p>
-      <SyntaxHighlighter language="javascript" style={a11yDark}>
-        {updatingObjectExample}
-      </SyntaxHighlighter>
+      <CodeSnippet>{updatingObjectExample}</CodeSnippet>
       <p>
         For React to know that the state has changed, set function needs to be
         called. So when we change the state through mutation, React will not
@@ -74,8 +102,12 @@ function UseStatePage() {
         comparison. For React not to ignore this update, we should call the set
         function with a new object.
       </p>
+      <p className="pt-4 border-t border-neutral-400 text-xs">
+        Below is an example making use of useState hook. Code for the component
+        can be found in the project files with the name given.
+      </p>
       <Counter />
-    </div>
+    </PageWithLayout>
   );
 }
 

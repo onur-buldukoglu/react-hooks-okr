@@ -1,47 +1,48 @@
-import { Link } from 'react-router-dom';
-
 import CounterWithReducer from '../components/CounterWithReducer';
+import PageWithLayout from '../components/PageWithLayout';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
 
 function UseReducerPage() {
   const initializeReducerExample = `
-    import { useReducer } from 'react';
+  import { useReducer } from 'react';
 
-    function reducer(state, action) {
-      // ...
-    }
+  function reducer(state, action) {
+    // ...
+  }
 
-    function CounterWithReducer() {
-      const [state, dispatch] = useReducer(reducer, { count: 0 });
-      // ...
-    }
-  `;
+  function CounterWithReducer() {
+    const [state, dispatch] = useReducer(reducer, { count: 0 });
+    // ...
+  }
+`;
 
   const reducerFunctionExample = `
-    function reducer(state, action) {
-      switch (action.type) {
-        case 'increment': {
-          return { count: state.count + 1 }
-        }
-        case 'decrement': {
-          return { count: state.count - 1 }
-        }
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'increment': {
+        return { count: state.count + 1 }
+      }
+      case 'decrement': {
+        return { count: state.count - 1 }
       }
     }
+  }
+  `;
+
+  const dispatchFunctionExample = `
+  function handleCountIncrement() {
+    dispatch({ type: 'increment' });
+  }
   `;
 
   return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useReducer</Heading>
+    <PageWithLayout>
+      <Heading level={'h2'}>useReducer</Heading>
       <p>
-        useReducer hook is an alternative to{' '}
-        <Link className="text-blue-600 underline" to={'/use-state'}>
-          useState
-        </Link>{' '}
-        hook to manage component state. Unlike useState, useReducer uses a
-        reducer function to manage state updating logic according to dispatched
-        action.
+        useReducer hook is an alternative to useState hook to manage component
+        state. Unlike useState, useReducer uses a reducer function to manage
+        state updating logic according to dispatched action.
       </p>
       <CodeSnippet>{initializeReducerExample}</CodeSnippet>
       <p>
@@ -83,6 +84,7 @@ function UseReducerPage() {
         The dispatch function is what lets us update the state when managing the
         state with useReducer. It takes the action as the only argument.
       </p>
+      <CodeSnippet>{dispatchFunctionExample}</CodeSnippet>
       <p>
         When the dispatch function is called, React calls the reducer function
         with the current state and the action we have passed to the dispatch
@@ -94,17 +96,12 @@ function UseReducerPage() {
         Reading state in the same running code after updating it would give us
         the old state value.
       </p>
-      <p className="text-3xl">
-        state aynı değere setlenirse component ve childrenda re-render
-        atlanacak. useState'e ve buraya ekle.
-      </p>
-      <p className="text-3xl">object ve array mutation ile ilgili kısmı ekle</p>
-      <p className="text-3xl">
-        useState counter örneği useReducer ile yazılabilir. mutation ile ilgili
-        örnek eklenebilir.
+      <p className="pt-4 border-t border-neutral-400 text-xs">
+        Below is an example making use of useReducer hook. Code for the
+        component can be found in the project files with the name given.
       </p>
       <CounterWithReducer />
-    </div>
+    </PageWithLayout>
   );
 }
 

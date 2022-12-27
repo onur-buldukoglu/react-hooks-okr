@@ -1,9 +1,10 @@
+import PageWithLayout from '../components/PageWithLayout';
 import Heading from '../components/ui/Heading';
 
 function HomePage() {
   return (
-    <div className="border rounded p-4 m-8 flex flex-col gap-4 w-1/2">
-      <Heading level={'h1'}>React Hooks</Heading>
+    <PageWithLayout>
+      <Heading level={'h3'}>React Hooks</Heading>
       <div className="flex flex-col gap-2">
         <Heading level={'h4'}>What are hooks?</Heading>
         <p>
@@ -47,7 +48,7 @@ function HomePage() {
           </p>
         </div>
       </div>
-    </div>
+    </PageWithLayout>
   );
 }
 

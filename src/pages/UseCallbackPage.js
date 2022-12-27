@@ -1,14 +1,26 @@
+import PageWithLayout from '../components/PageWithLayout';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
 
 function UseCallbackPage() {
+  const initializeExample = `
+  import { useCallback } from 'react';
+
+  function TodoList({ todos }) {
+    const addTodo = useCallback(
+      (newTodo) => addNewTodo(newTodo),
+      [addNewTodo]
+    );
+    // ...
+  }
+`;
   return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useCallback</Heading>
+    <PageWithLayout>
+      <Heading level={'h2'}>useCallback</Heading>
       <p>
         We can cache a function definition between re-renders with useCallback.
       </p>
-      <CodeSnippet>'useMemo example'</CodeSnippet>
+      <CodeSnippet>{initializeExample}</CodeSnippet>
       <p>
         We can pass two parameters to useCallback. First one is the function
         definition we want to cache between re-renders, and the second is a list
@@ -41,7 +53,7 @@ function UseCallbackPage() {
         Because the prop value has not changed, the memoized component will not
         re-render, even in the case of value being a function.
       </p>
-    </div>
+    </PageWithLayout>
   );
 }
 

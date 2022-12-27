@@ -1,17 +1,44 @@
+import PageWithLayout from '../components/PageWithLayout';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
 
 function UseInsertionEffectPage() {
+  const initializeExample = `
+  import { useInsertionEffect } from 'react';
+  
+  function useCSS(rule) {
+    useInsertionEffect(() => {
+      // <style> tags are inserted here
+    });
+  }
+  `;
+
+  const dependencyListExample = `
+    // Effect will run for every render
+    useEffect(() => {
+      insertTags();
+    });
+
+    // Effect will run for the first render only
+    useEffect(() => {
+      insertTags();
+    }, []);
+
+    // Effect will run only when the dependency changes
+    useEffect(() => {
+      insertTags();
+    }, [insertTags]);
+  `;
   return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useInsertionEffect</Heading>
+    <PageWithLayout>
+      <Heading level={'h2'}>useInsertionEffect</Heading>
       <p>
         useInsertionEffect is another version of useEffect that fires before the
         any DOM mutations. useInsertionEffect is aimed at CSS-in-JS library
         authors. In other cases using useEffect and useLayoutEffect is
         recommended.
       </p>
-      <CodeSnippet>'useInsertionEffect example'</CodeSnippet>
+      <CodeSnippet>{initializeExample}</CodeSnippet>
       <p>
         useInsertionEffect hook takes the same parameters as the useEffect hook;
         a setup function that contains the Effect logic and a dependency list
@@ -23,20 +50,10 @@ function UseInsertionEffectPage() {
         function is called with the new values. After the component is removed
         from the DOM, the cleanup function will be run one last time.
       </p>
-      <CodeSnippet>'useInsertionEffect dependency list example'</CodeSnippet>
+      <CodeSnippet>{dependencyListExample}</CodeSnippet>
       <p>
         useInsertionEffect helps solving the problem of runtime injection of
-        &lt;style&gt; tags by making in injections before any DOM mutations.
-      </p>
-      <CodeSnippet>'useInsertionEffect implement example'</CodeSnippet>
-      <p>
-        Usually, a component's position and size are calculated by the browser
-        from the JSX and CSS that the component returns. In some cases, a
-        component may need to know its Insertion on the screen before browser
-        paints the screen. For example, a component may need to be placed on the
-        top or bottom of another component depending on the space available.
-        useInsertionEffect helps us by rendering one extra time and measuring
-        the component before the other re-render triggers.
+        &lt;style&gt; tags by making the injections before any DOM mutations.
       </p>
       <p>
         useLayoutEffect and useEffect can also be used to insert styles but it
@@ -45,7 +62,7 @@ function UseInsertionEffectPage() {
         &lt;style&gt; tags are already been inserted before other Effects run in
         the components.
       </p>
-    </div>
+    </PageWithLayout>
   );
 }
 

@@ -1,17 +1,29 @@
+import PageWithLayout from '../components/PageWithLayout';
+import TextInputWithRef from '../components/TextInputWithRef';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
 
 function UseRefPage() {
-  return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useRef</Heading>
+  const initializeExample = `
+  import { useRef } from 'react';
 
+  function MyComponent() {
+    const intervalRef = useRef(0);
+    const inputRef = useRef(null);
+    
+    // ...
+  }
+  `;
+
+  return (
+    <PageWithLayout>
+      <Heading level={'h2'}>useRef</Heading>
       <p>
         Usually when we want a component to remember some information, we create
         a component state. In the case that we want to avoid the re-renders that
         updating the state would trigger, using refs are the solution.
       </p>
-      <CodeSnippet>'useRef example'</CodeSnippet>
+      <CodeSnippet>{initializeExample}</CodeSnippet>
       <p>
         useRef hook takes an initial value as a parameter and returns a ref
         object. Initially 'current' property of the ref object will be set to
@@ -31,7 +43,13 @@ function UseRefPage() {
         accessible in our code. Current property will be set to null again when
         the node is removed from the screen.
       </p>
-    </div>
+      <p className="pt-4 border-t border-neutral-400 text-xs">
+        Below is an example making use of useRef hook to focus an input element
+        on a click event. Code for the component can be found in the project
+        files with the name given.
+      </p>
+      <TextInputWithRef />
+    </PageWithLayout>
   );
 }
 

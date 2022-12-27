@@ -1,10 +1,105 @@
+import PageWithLayout from '../components/PageWithLayout';
 import CodeSnippet from '../components/ui/CodeSnippet';
 import Heading from '../components/ui/Heading';
 
 function UseEffectPage() {
+  const initializeExample = `
+  import { useState, useEffect } from 'react';
+  
+  function ChatRoom({ roomId }) {
+    const [serverUrl, setServerUrl] = useState('https://localhost:1234');
+
+    useEffect(() => {
+      const connection = createConnection(serverUrl, roomId);
+      connection.connect();
+      return () => {
+        connection.disconnect();
+      };
+    }, [serverUrl, roomId]);
+
+    // ...
+  }
+  `;
+
+  const dependencyListExample = `
+    // Effect will run for every render
+    useEffect(() => {
+      fetchData();
+    });
+
+    // Effect will run for the first render only
+    useEffect(() => {
+      fetchData();
+    }, []);
+
+    // Effect will run only when the dependency changes
+    useEffect(() => {
+      fetchData();
+    }, [fetchData]);
+  `;
+
+  const updatingStateFromEffectExample = `
+  function Form() {
+    const [firstName, setFirstName] = useState('Dave');
+    const [lastName, setLastName] = useState('Grohl');
+
+    // Unnecessary state and effect, will cause extra re-renders
+    const [fullName, setFullName] = useState('');
+    useEffect(() => {
+      setFullName(firstName + ' ' + lastName);
+    }, [firstName, lastName]);
+
+    // ...
+  }
+  `;
+
+  const updationStateDuringRenderExample = `
+  function Form() {
+    const [firstName, setFirstName] = useState('Dave');
+    const [lastName, setLastName] = useState('Grohl');
+
+    // Variable is calculated during rendering from existing state. Will not cause extra re-renders
+    const fullName = firstName + ' ' + lastName;
+
+    // ...
+  }
+  `;
+
+  const resettingWithEffectExample = `
+  function ProfilePage({ userId }) {
+    const [comment, setComment] = useState('');
+
+    // Resetting with an Effect will cause extra re-render
+    useEffect(() => {
+      setComment('');
+    }, [userId]);
+
+    // ...
+  }
+  `;
+
+  const resettingWithKeyExample = `
+  function ProfilePage({ userId }) {
+    return (
+      <Profile
+        userId={userId}
+        key={userId}
+      />
+    );
+  }
+
+  const Profile({ userId }) {
+    
+    // When the key changes state will reset automatically
+    const [comment, setComment] = useState('');
+
+    // ...
+  }
+  `;
+
   return (
-    <div className="w-1/2 flex flex-col gap-4">
-      <Heading level={'h1'}>useEffect</Heading>
+    <PageWithLayout>
+      <Heading level={'h3'}>useEffect</Heading>
       <p>
         useEffect hook lets us manage effects in React components by
         synchronizing the component with external systems. Effects are what let
@@ -15,7 +110,7 @@ function UseEffectPage() {
         regardless of any interaction on the component. Effects run at the end
         of the rendering process after the screen updates.
       </p>
-      <CodeSnippet>'useEffect example'</CodeSnippet>
+      <CodeSnippet>{initializeExample}</CodeSnippet>
       <p>
         useEffect takes two parameters, a setup function and a list of
         dependencies. The setup function contains our Effect's logic. It may
@@ -27,7 +122,7 @@ function UseEffectPage() {
         values. After the component is removed from the DOM, the cleanup
         function will be run one last time.
       </p>
-      <CodeSnippet>'useEffect dependency list example'</CodeSnippet>
+      <CodeSnippet>{dependencyListExample}</CodeSnippet>
       <p>
         The dependency list is optional and contains all reactive values
         referenced in the setup code. These reactive values can be props, state
@@ -45,7 +140,8 @@ function UseEffectPage() {
         to put something that can be calculated from a state or prop value in a
         state and to make the calculation during rendering.
       </p>
-      <CodeSnippet>'useEffect changing state from state example'</CodeSnippet>
+      <CodeSnippet>{updatingStateFromEffectExample}</CodeSnippet>
+      <CodeSnippet>{updationStateDuringRenderExample}</CodeSnippet>
       <p>
         If we want to reset a component's state when a prop change, using an
         Effect could seem like a good option, but it is an inefficient solution
@@ -56,8 +152,9 @@ function UseEffectPage() {
         spot. Using keys will tell React that these components should be treated
         as different components and not to preserve the state.
       </p>
-      <CodeSnippet>'useEffect reset state with key example'</CodeSnippet>
-    </div>
+      <CodeSnippet>{resettingWithEffectExample}</CodeSnippet>
+      <CodeSnippet>{resettingWithKeyExample}</CodeSnippet>
+    </PageWithLayout>
   );
 }
 
