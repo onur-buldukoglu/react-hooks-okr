@@ -6,7 +6,7 @@ function HomePage() {
     <PageWithLayout>
       <Heading level={'h3'}>React Hooks</Heading>
       <div className="flex flex-col gap-2">
-        <Heading level={'h4'}>What are hooks?</Heading>
+        <Heading level={'h5'}>What are hooks?</Heading>
         <p>
           Hooks are functions that allow us to use React features, such as state
           and lifecycle methods, in functional components. While class
@@ -24,7 +24,7 @@ function HomePage() {
         <Heading level={'h4'}>Rules of Hooks</Heading>
         <p>There are two rules to be followed when using React hooks.</p>
         <div>
-          <Heading level={'h3'}>
+          <Heading level={'h5'}>
             Hooks should only be called at the top level
           </Heading>
           <p>
@@ -37,7 +37,7 @@ function HomePage() {
           </p>
         </div>
         <div>
-          <Heading level={'h3'}>
+          <Heading level={'h5'}>
             Hooks should only be called from React functions
           </Heading>
           <p>

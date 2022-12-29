@@ -99,7 +99,7 @@ function UseEffectPage() {
 
   return (
     <PageWithLayout>
-      <Heading level={'h3'}>useEffect</Heading>
+      <Heading level={'h2'}>useEffect</Heading>
       <p>
         useEffect hook lets us manage effects in React components by
         synchronizing the component with external systems. Effects are what let

@@ -24,7 +24,7 @@ function UseStatePage() {
     }
 
     function handleCountIncrement() {
-      setCount(previousCount => previousCount + 1);
+      setCount((previousCount) => previousCount + 1);
     }
 
     // ...
