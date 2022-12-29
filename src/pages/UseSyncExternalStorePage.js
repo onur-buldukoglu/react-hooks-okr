@@ -61,7 +61,7 @@ function UseSyncExternalStorePage() {
 
   return (
     <PageWithLayout>
-      <Heading level={'h2'}>useSyncExternalStorePage</Heading>
+      <Heading level={'h2'}>useSyncExternalStore</Heading>
       <p>
         UseSyncExternalStore hook lets us read data from a store outside of
         React. This outside store can be a third-party state management library
